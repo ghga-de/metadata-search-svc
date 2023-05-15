@@ -1,0 +1,17 @@
+#!/bin/bash
+# install service in dev container
+
+cd /workspace
+
+
+# install in edit mode
+# use-feature way of installing packages
+# install with testing dependencies
+python -m pip install --upgrade pip
+
+pip install \
+    -e \
+    ".[all]"
+
+# install pre-commit hooks to git:
+pre-commit install
