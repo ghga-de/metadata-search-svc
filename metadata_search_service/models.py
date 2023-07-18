@@ -42,7 +42,7 @@ class FacetOption(BaseModel):
     Represent values and their corresponding count for a facet.
     """
 
-    option: str = Field(description="One of the values for the facet")
+    option: Optional[str] = Field(None, description="One of the values for the facet")
     count: Optional[int] = Field(
         None,
         description="The count that represents number of documents that has this facet value",
