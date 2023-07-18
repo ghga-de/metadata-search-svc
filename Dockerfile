@@ -14,7 +14,7 @@
 # limitations under the License.
 
 ## creating building container
-FROM python:3.10.9-slim-bullseye AS builder
+FROM python:3.9.17-slim-bullseye AS builder
 # update and install dependencies
 RUN apt update
 RUN apt upgrade -y
@@ -22,17 +22,19 @@ RUN pip install build
 # copy code
 COPY . /service
 WORKDIR /service
+RUN pip install "cython<3"
 # build wheel
 RUN python -m build
 
 # creating running container
-FROM python:3.10.9-slim-bullseye
+FROM python:3.9.17-slim-bullseye
 # update and install dependencies
 RUN apt update
 RUN apt upgrade -y
 # copy and install wheel
 WORKDIR /service
 COPY --from=builder /service/dist/ /service
+RUN pip install "cython<3"
 RUN pip install *.whl
 # create new user and execute as that user
 RUN useradd --create-home appuser
