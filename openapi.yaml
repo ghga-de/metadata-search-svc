@@ -50,8 +50,6 @@ components:
           description: One of the values for the facet
           title: Option
           type: string
-      required:
-      - option
       title: FacetOption
       type: object
     FilterOption:
@@ -149,7 +147,9 @@ components:
       properties:
         loc:
           items:
-            type: string
+            anyOf:
+            - type: string
+            - type: integer
           title: Location
           type: array
         msg:
@@ -167,7 +167,7 @@ components:
 info:
   title: FastAPI
   version: 0.1.0
-openapi: 3.0.2
+openapi: 3.1.0
 paths:
   /:
     get:
