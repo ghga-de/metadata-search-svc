@@ -15,17 +15,19 @@
 
 """Entrypoint of the package"""
 
+import asyncio
+
 from ghga_service_chassis_lib.api import run_server
 
 from .api.main import app  # noqa: F401 pylint: disable=unused-import
 from .config import CONFIG, Config
 
 
-def run(config: Config = CONFIG):
-    """Run the service"""
+async def run(config: Config = CONFIG):
+    """Run the service asynchronously"""
     # Please adapt to package name
-    run_server(app="metadata_search_service.__main__:app", config=config)
+    await run_server(app="metadata_search_service.__main__:app", config=config)
 
 
 if __name__ == "__main__":
-    run()
+    asyncio.run(run())
