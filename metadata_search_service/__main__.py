@@ -23,11 +23,15 @@ from .api.main import app  # noqa: F401 pylint: disable=unused-import
 from .config import CONFIG, Config
 
 
-async def run(config: Config = CONFIG):
+async def run_async(config: Config = CONFIG):
     """Run the service asynchronously"""
-    # Please adapt to package name
     await run_server(app="metadata_search_service.__main__:app", config=config)
 
 
+def run(config: Config = CONFIG):
+    """Run the service synchronously for the console_scripts entry point"""
+    asyncio.run(run_async(config))
+
+
 if __name__ == "__main__":
-    asyncio.run(run())
+    run()
